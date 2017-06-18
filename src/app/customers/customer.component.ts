@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from './customer';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
 
@@ -31,10 +31,17 @@ function emailMatcher(c: AbstractControl): {[key: string]: boolean} | null  {
     templateUrl: './app/customers/customer.component.html'
 })
 
+
+
 export class CustomerComponent implements OnInit {
     customerForm: FormGroup;
     customer: Customer= new Customer();
     emailMessage: string;
+
+
+    get addresses(): FormArray{
+        return <FormArray>this.customerForm.get('addresses');
+    }
 
     private validationMesages = {
         required: 'Please enter your email address.',
@@ -57,7 +64,7 @@ export class CustomerComponent implements OnInit {
             rating: ['', ratingRange(1, 5)],
             notification: 'email',
             sendCatalog: true,
-            addresses: this.buildAddresses()
+            addresses: this.fb.array([this.buildAddress()])
         });
 
         this.customerForm.get('notification').valueChanges
@@ -74,7 +81,11 @@ export class CustomerComponent implements OnInit {
         }
     }
 
-    buildAddresses(): FormGroup {
+    addAddress(): void {
+        this.addresses.push(this.buildAddress());
+    }
+
+    buildAddress(): FormGroup {
         return this.fb.group({
                 addressType: 'home',
                 street1: '',
@@ -84,6 +95,8 @@ export class CustomerComponent implements OnInit {
                 zip: ''
             });
     }
+
+
 
     save() {
         console.log(this.customerForm);
