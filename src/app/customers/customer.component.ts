@@ -57,14 +57,7 @@ export class CustomerComponent implements OnInit {
             rating: ['', ratingRange(1, 5)],
             notification: 'email',
             sendCatalog: true,
-            addresses: this.fb.group({
-                addressType: 'home',
-                street1: '',
-                street2: '',
-                city: '',
-                state: '',
-                zip: ''
-            })
+            addresses: this.buildAddresses()
         });
 
         this.customerForm.get('notification').valueChanges
@@ -79,6 +72,17 @@ export class CustomerComponent implements OnInit {
         if ((c.touched || c.dirty) && c.errors) {
             this.emailMessage = Object.keys(c.errors).map(key => this.validationMesages[key]).join(' ');
         }
+    }
+
+    buildAddresses(): FormGroup {
+        return this.fb.group({
+                addressType: 'home',
+                street1: '',
+                street2: '',
+                city: '',
+                state: '',
+                zip: ''
+            });
     }
 
     save() {
