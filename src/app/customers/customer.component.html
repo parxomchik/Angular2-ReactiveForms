@@ -156,7 +156,8 @@
 
                 
                 <div *ngIf="customerForm.get('sendCatalog').value">
-                    <div class="form-group" >
+                    <div formGroupName="addresses">
+                        <div class="form-group" >
                         <label class="col-md-2 control-label">Address Type</label>
                         <div class="col-md-8">
                                 <label class="radio-inline">
@@ -172,9 +173,9 @@
                                            formControlName="addressType">Other
                                 </label>
                         </div>
-                    </div>
+                        </div>
 
-                    <div class="form-group">
+                        <div class="form-group">
                         <label class="col-md-2 control-label" 
                             for="street1Id">Street Address 1</label>
                         <div class="col-md-8">
@@ -184,9 +185,9 @@
                                    placeholder="Street address"
                                    formControlName="street1">
                         </div>
-                    </div>
+                        </div>
 
-                    <div class="form-group">
+                        <div class="form-group">
                         <label class="col-md-2 control-label" 
                             for="street2Id">Street Address 2</label>
                         <div class="col-md-8">
@@ -196,9 +197,8 @@
                                    placeholder="Street address (second line)"
                                    formControlName="street2">
                         </div>
-                    </div>
-
-                    <div class="form-group">
+                        </div>
+                                            <div class="form-group">
                         <label class="col-md-2 control-label" 
                             for="cityId">City, State, Zip Code</label>
                         <div class="col-md-3">
@@ -230,6 +230,7 @@
                                    placeholder="Zip Code"
                                    formControlName="zip">
                         </div>
+                    </div> 
                     </div>
                 </div>
 
